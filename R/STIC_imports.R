@@ -19,6 +19,17 @@
 #'
 #' @return the formatted data
 #'
+#'
+#'
+#' @examples
+#' clean_STIC <- loadSTIC("https://raw.githubusercontent.com/matthewberens/STICr/data/raw_hobo_export.csv")
+#' clean_STIC_dir <- loadSTIC_dir("https://raw.githubusercontent.com/matthewberens/STICr/data")
+#'
+#'
+#'
+#'
+#'
+#'
 #' @rdname loadSTIC
 #' @export
 #'
@@ -46,11 +57,11 @@ loadSTICdir <- function(dirSTIC){
     dir_ls(regexp = "\\.csv$") %>%
     map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
     dplyr::select(-"#") %>%
-    dplyr::rename_with_(.cols = contains("Date"),
+    dplyr::rename_with(.cols = contains("Date"),
                        .fn = function(x){"DateTime"}) %>%
-    dplyr::rename_with_(.cols = contains("Temp"),
+    dplyr::rename_with(.cols = contains("Temp"),
                        .fn = function(x){"TEMP_C"}) %>%
-    dplyr::rename_with_(.cols = contains("Intensity"),
+    dplyr::rename_with(.cols = contains("Intensity"),
                        .fn = function(x){"INTENSITY_LUX"}) %>%
     dplyr::mutate_(TEMP_C = as.numeric(TEMP_C),
                   INTENSITY_LUX = as.numeric(INTENSITY_LUX),
