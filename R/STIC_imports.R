@@ -53,7 +53,6 @@ loadSTIC <- function(rawSTIC){
 #' @export
 
 loadSTICdir <- function(dirSTIC){
-  read_csv <- NULL
   dirSTIC %>%
     dir_ls(regexp = "\\.csv$") %>%
     map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
