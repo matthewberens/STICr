@@ -23,11 +23,6 @@ loadSTIC() is a tool to import and tidy raw STIC sensor data.
 }
 \examples{
 clean_STIC <- loadSTIC("https://raw.githubusercontent.com/matthewberens/STICr/data/raw_hobo_export.csv")
-clean_STIC_dir <- loadSTIC_dir("https://raw.githubusercontent.com/matthewberens/STICr/data")
-
-
-
-
-
+clean_STIC_dir <- loadSTICdir("https://raw.githubusercontent.com/matthewberens/STICr/data")
 
 }
