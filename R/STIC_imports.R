@@ -50,7 +50,7 @@ loadSTIC <- function(rawSTIC){
 loadSTICdir <- function(dirSTIC){
   dirSTIC %>%
     dir_ls(regexp = "\\.csv$") %>%
-    purrr::map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
+    purrr::map_dfr(readr::read_csv, .id = "FileID", show_col_types = FALSE) %>%
     dplyr::select(-"#") %>%
     dplyr::rename_with(.cols = contains("Date"),
                        .fn = function(x){"DateTime"}) %>%
