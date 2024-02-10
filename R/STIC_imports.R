@@ -66,5 +66,5 @@ loadSTICdir <- function(dirSTIC){
                   STIC_ID = str_match(FileID, "_\\s*(.*?)\\s*_")[,2],
                   Group = str_extract(Site, "[^.]+")) %>%
     dplyr::select(-"FileID") %>%
-    dplyr::select(FileID,Group, Site, DateTime, INTENSITY_LUX, TEMP_C)
+    dplyr::select(Group, Site, DateTime, INTENSITY_LUX, TEMP_C)
 }
