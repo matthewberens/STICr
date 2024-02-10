@@ -6,29 +6,22 @@ Author: Matthew Berens
 Maintainer: Matthew Berens <berensmj@ornl.gov>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT License
 Encoding: UTF-8
 LazyData: true
 Depends:
   R (>= 3.6)
-Imports: 
-    cli (>= 3.4.1),
-    dplyr (>= 1.0.10),
-    glue,
-    lifecycle (>= 1.0.3),
+RoxygenNote: 7.3.1
+Imports:
+    dplyr,
+    lubridate,
+    data.table,
+    ggplot2,
+    stringr,
+    tidyr,
+    fs,
     magrittr,
-    purrr (>= 1.0.1),
-    rlang (>= 1.1.1),
-    stringr (>= 1.5.0),
-    tibble (>= 2.1.1),
-    tidyselect (>= 1.2.0),
-    utils,
-    vctrs (>= 0.5.2)
-Suggests:
-  knitr
-LinkingTo: 
-    cpp11 (>= 0.4.0)
-VignetteBuilder: 
-    knitr
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0
+    purrr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
