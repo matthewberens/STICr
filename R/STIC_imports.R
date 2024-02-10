@@ -23,12 +23,7 @@
 #'
 #' @examples
 #' clean_STIC <- loadSTIC("https://raw.githubusercontent.com/matthewberens/STICr/data/raw_hobo_export.csv")
-#' clean_STIC_dir <- loadSTIC_dir("https://raw.githubusercontent.com/matthewberens/STICr/data")
-#'
-#'
-#'
-#'
-#'
+#' clean_STIC_dir <- loadSTICdir("https://raw.githubusercontent.com/matthewberens/STICr/data")
 #'
 #' @rdname loadSTIC
 #' @export
@@ -55,7 +50,7 @@ loadSTIC <- function(rawSTIC){
 loadSTICdir <- function(dirSTIC){
   dirSTIC %>%
     dir_ls(regexp = "\\.csv$") %>%
-    map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
+    purrr::map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
     dplyr::select(-"#") %>%
     dplyr::rename_with(.cols = contains("Date"),
                        .fn = function(x){"DateTime"}) %>%
@@ -66,10 +61,10 @@ loadSTICdir <- function(dirSTIC){
     dplyr::mutate(TEMP_C = as.numeric(TEMP_C),
                   INTENSITY_LUX = as.numeric(INTENSITY_LUX),
                   DateTime = mdy_hm(DateTime)) %>%
-    dplyr::mutate(FileID = gsub(paste(P, "/", sep = ""), '', FileID),
+    dplyr::mutate(FileID = gsub(paste(dirSTIC, "/", sep = ""), '', FileID),
                   Site = str_extract(FileID, "[^_]+"),
                   STIC_ID = str_match(FileID, "_\\s*(.*?)\\s*_")[,2],
                   Group = str_extract(Site, "[^.]+")) %>%
     dplyr::select(-"FileID") %>%
-    dplyr::select(Group, Site, DateTime, INTENSITY_LUX, TEMP_C)
+    dplyr::select(FileID,Group, Site, DateTime, INTENSITY_LUX, TEMP_C)
 }
