@@ -53,6 +53,7 @@ loadSTIC <- function(rawSTIC){
 #' @export
 
 loadSTICdir <- function(dirSTIC){
+  read_csv <- NULL
   dirSTIC %>%
     dir_ls(regexp = "\\.csv$") %>%
     map_dfr(read_csv, .id = "FileID", show_col_types = FALSE) %>%
@@ -63,13 +64,13 @@ loadSTICdir <- function(dirSTIC){
                        .fn = function(x){"TEMP_C"}) %>%
     dplyr::rename_with(.cols = contains("Intensity"),
                        .fn = function(x){"INTENSITY_LUX"}) %>%
-    dplyr::mutate_(TEMP_C = as.numeric(TEMP_C),
+    dplyr::mutate(TEMP_C = as.numeric(TEMP_C),
                   INTENSITY_LUX = as.numeric(INTENSITY_LUX),
                   DateTime = mdy_hm(DateTime)) %>%
-    dplyr::mutate_(FileID = gsub(paste(P, "/", sep = ""), '', FileID),
+    dplyr::mutate(FileID = gsub(paste(P, "/", sep = ""), '', FileID),
                   Site = str_extract(FileID, "[^_]+"),
                   STIC_ID = str_match(FileID, "_\\s*(.*?)\\s*_")[,2],
                   Group = str_extract(Site, "[^.]+")) %>%
-    dplyr::select_(-"FileID") %>%
+    dplyr::select(-"FileID") %>%
     dplyr::select(Group, Site, DateTime, INTENSITY_LUX, TEMP_C)
 }
